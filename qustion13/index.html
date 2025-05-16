@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Virtual DOM Demo</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    button { margin-top: 10px; }
+    .section { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <h2>Virtual DOM vs Traditional DOM</h2>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function App() {
+      const [reactTitle, setReactTitle] = React.useState("React Title");
+      const [reactUpdates, setReactUpdates] = React.useState(0);
+
+      // Vanilla JS DOM counter (useRef to persist across renders)
+      const vanillaCounter = React.useRef(0);
+
+      const changeVanillaTitle = () => {
+        vanillaCounter.current++;
+        document.getElementById('vanilla-title').innerText = 'Vanilla Title ' + vanillaCounter.current;
+        document.getElementById('vanilla-count').innerText = 'DOM Updates: ' + vanillaCounter.current;
+      };
+
+      const changeReactTitle = () => {
+        setReactTitle('React Title ' + (reactUpdates + 1));
+        setReactUpdates(prev => prev + 1);
+      };
+
+      return (
+        <div>
+          <div className="section">
+            <h3 id="vanilla-title">Vanilla Title</h3>
+            <p id="vanilla-count">DOM Updates: 0</p>
+            <button onClick={changeVanillaTitle}>Change Title (Vanilla JS)</button>
+          </div>
+
+          <div className="section">
+            <h3>{reactTitle}</h3>
+            <p>DOM Updates: {reactUpdates}</p>
+            <button onClick={changeReactTitle}>Change Title (React)</button>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

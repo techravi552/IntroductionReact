@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>React SPA</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+
+    nav a {
+      margin-right: 15px;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+    .page {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function App() {
+      const [page, setPage] = React.useState("home");
+
+      const renderPage = () => {
+        if (page === "home") {
+          return <div className="page" style={{ backgroundColor: "#e3f2fd" }}><h2>Welcome to Home</h2><p>This is the home page.</p></div>;
+        } else if (page === "about") {
+          return <div className="page" style={{ backgroundColor: "#fce4ec" }}><h2>About Us</h2><p>We are learning React SPA.</p></div>;
+        } else if (page === "contact") {
+          return <div className="page" style={{ backgroundColor: "#e8f5e9" }}><h2>Contact Us</h2><p>Email: contact@example.com</p></div>;
+        }
+      };
+
+      return (
+        <div>
+          <nav>
+            <a onClick={() => setPage("home")}>Home</a>
+            <a onClick={() => setPage("about")}>About</a>
+            <a onClick={() => setPage("contact")}>Contact</a>
+          </nav>
+          {renderPage()}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
